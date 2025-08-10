@@ -26,38 +26,6 @@ function! s:W0(...)
   return join(a:000[1:], '')
 endfunction
 
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines, action = 'r')
-  let lns = map(deepcopy(a:lines),
-        \ '{ "filename": v:val'.
-        \ ', "lnum": 1'.
-        \ ' }'
-        \ )
-  if g:qfloc
-    call setloclist(0, lns)
-  else
-    call setqflist(lns)
-  endif
-  call QFcmd('open')
-endfunction
-
-func s:fnameescape(key, val)
-  return fnameescape(a:val)
-endfunc
-
-function! s:populate_arg_list(lines)
-  execute 'args ' . join(map(a:lines, function('s:fnameescape')), ' ')
-endfunction
-
-function! s:add_arg_list(lines)
-  execute 'argadd ' . join(map(a:lines, function('s:fnameescape')), ' ')
-endfunction
-
-function! s:tab_args(lines)
-  Tabe
-  execute 'args ' . join(map(a:lines, function('s:fnameescape')), ' ')
-endfunction
-
 " }}} 
 
 " settings {{{ 
