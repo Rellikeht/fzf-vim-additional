@@ -7,6 +7,7 @@ defined in documentation of fzf)
 
 - [fzf](https://github.com/junegunn/fzf)
 - [fzf.vim](https://github.com/junegunn/fzf.vim)
+- [vim-extras](https://github.com/Rellikeht/vim-extras)
 
 ## Instalation
 

@@ -6,8 +6,8 @@ endfunction
 
 function s:restore_status()
   exe "set laststatus=".b:fzf_add_status_bck[0]
-  exe "set showmode=".b:fzf_add_status_bck[1]
-  exe "set ruler=".b:fzf_add_status_bck[2]
+  exe "set ".((b:fzf_add_status_bck[1])?"":"no")."showmode"
+  exe "set ".((b:fzf_add_status_bck[2])?"":"no")."ruler"
 endfunction
 
 function! s:with_dir(dir='')
@@ -78,9 +78,16 @@ endif
 
 " grep {{{ 
 
+" TODO clean
+let g:grep_args = ' -EI -d skip'.
+      \ ' --exclude-dir=.git'.
+      \ ' --exclude-dir=.hg'.
+      \ ' --exclude-dir=build'.
+      \ ' --exclude-dir=\?cache'
+let g:grep_prog = 'grep '.g:grep_args
+
 let s:ggrep_args = '--line-number --color=always -EI'
 let s:grep = g:grep_prog.' -r '.s:ggrep_args
-" let s:ggrep_args = s:ggrep_args.' -EI'
 
 " simple grep
 command! -bang -nargs=* Fgrep
