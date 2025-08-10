@@ -1,5 +1,15 @@
 " helpers {{{ 
 
+function s:backup_status()
+  let b:fzf_add_status_bck = [&laststatus, &showmode, &ruler]
+endfunction
+
+function s:restore_status()
+  exe "set laststatus=".b:fzf_add_status_bck[0]
+  exe "set showmode=".b:fzf_add_status_bck[1]
+  exe "set ruler=".b:fzf_add_status_bck[2]
+endfunction
+
 function! s:with_dir(dir='')
   if len(a:dir) == 0
     return {}
@@ -52,16 +62,17 @@ endfunction
 
 " settings {{{ 
 
-autocmd! FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+if !exists("g:fzf_add_hide_statusline")
+  let g:fzf_add_hide_statusline = 1
+endif
 
-function g:fzf_vim.listproc(list)
-  if g:qfloc
-    fzf#vim#listproc#location(list)
-  else
-    fzf#vim#listproc#quickfix(list)
-  endif
-endfunction
+if g:fzf_add_hide_statusline
+  " Slightly more sophisticated version of
+  " https://github.com/junegunn/fzf.vim/blob/master/README.md#status-line-of-terminal-buffer
+  autocmd! FileType fzf call <SID>backup_status()
+        \| set laststatus=0 noshowmode noruler
+        \| autocmd BufLeave <buffer> call <SID>restore_status()
+endif
 
 " }}} 
 
