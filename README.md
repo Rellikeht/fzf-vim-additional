@@ -1,7 +1,7 @@
 # fzf-vim-additional
 
-Utilities not available in fzf-vim by default (some of them are even
-defined in documentation of fzf)
+Additional fzf-vim stuff I found useful. Some is even defined in fzf-vim 
+documentation.
 
 ## Dependencies
 
@@ -11,4 +11,26 @@ defined in documentation of fzf)
 
 ## Instalation
 
-Just use your standard method and remember about dependencies
+Just use your method of choice and remember about dependencies
+
+## Features
+
+- statusline fixes
+- git grep
+- filter from directory provided to command 
+  + grep (with flags improving usability)
+  + ripgrep
+  + ag
+- diff helpers
+
+## TODO
+
+- (nvim) lsp
+  + definitions
+  + references
+  + symbols
+  + diagnostics
+- old files
+- project files/project root finding helpers
+- separate action sets for separate command types (buffers, files, 
+  arguments, ...)
